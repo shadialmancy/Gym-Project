@@ -1,0 +1,32 @@
+String log="SELECT * FROM TUTOR WHERE USERNAME=? AND PASSWORD=?";
+         try{
+             ps=con.prepareStatement(log);
+             ps.setString(1,jusername.getText());
+             ps.setString(2,jpassword.getText());
+             rs=ps.executeQuery();
+             if (rs.next()) {
+                 new Tutor().setVisible(true);
+                 this.dispose();
+             }else{
+                 JOptionPane.showMessageDialog(null,"Wrong");
+             }
+         }catch(SQLException ex){
+             JOptionPane.showMessageDialog(null,ex);
+         }
+		 
+		 
+		 try{
+            String sql="UPDATE Course SET course_Name=? WHERE course_id=?";
+            String connectionURL="jdbc:sqlserver://localhost:1433;databaseName=PDB;user=admin;password=2018030020";
+            con=DriverManager.getConnection(connectionURL);
+            ps=con.prepareStatement(sql);
+            ps.setString(1,textid.getText());
+            ps.setString(2,textname.getText());
+            ps.executeUpdate();
+            Displaytable();
+        }
+        catch(SQLException |HeadlessException e){
+            JOptionPane.showMessageDialog(null, e);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Acourse.class.getName()).log(Level.SEVERE, null, ex);
+        }
